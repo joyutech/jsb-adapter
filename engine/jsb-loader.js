@@ -56,7 +56,9 @@ function downloadScript (url, options, onComplete) {
         options = null;
     }
 
-    if (loadedScripts[url]) return onComplete && onComplete();
+    // reload: true-表示脚本需要重新加载 false-表示允许从缓存中读取
+    var reload = options.reload;
+    if (loadedScripts[url] && !reload) return onComplete && onComplete();
 
     download(url, function (src, options, onComplete) {
         window.require(src);
